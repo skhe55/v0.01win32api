@@ -2,8 +2,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox, QWidget
 from simple_gui import Ui_MainWindow
 from FishingBotApp import FishingBotApp
-from list_Window_Names import list_window_names
-from getnamesproc import getNameWindow
+from GetNameWindow import getNameWindow
 import sys, time
        
 
@@ -20,10 +19,10 @@ class Main_GUI(QtWidgets.QMainWindow):
         self.thread = QtCore.QThread()
         self.worker = FishingBotApp()
         self.worker.catching_on_bait_flag = True
-        self.worker.NameHnwd = getNameWindow()#list_window_names()
+        self.worker.NameHnwd = getNameWindow()
         print(self.worker.NameHnwd)
         self.worker.moveToThread(self.thread)
-        self.thread.started.connect(self.worker.RunninBot)
+        self.thread.started.connect(self.worker.f_bot)
         self.worker.finished.connect(self.thread.quit)
         self.worker.finished.connect(self.worker.deleteLater)
         self.worker.finished.connect(lambda:self.ui.label.setText('Finished.\nWaiting event...'))
